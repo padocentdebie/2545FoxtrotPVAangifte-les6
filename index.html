@@ -81,12 +81,14 @@
         .btn-check { background: var(--p-blauw); color: white; }
         .btn-reset { background: #6c757d; color: white; margin-bottom: 25px; }
 
-        textarea { width: 100%; padding: 18px; border: 1px solid #bac8d9; font-family: 'Courier New', monospace; font-size: 1rem; border-radius: 12px; }
+        textarea { width: 100%; padding: 18px; border: 1px solid #bac8d9; font-family: 'Courier New', monospace; font-size: 1rem; border-radius: 12px; resize: vertical; }
         .audio-icon { background: var(--p-geel); padding: 8px 16px; border-radius: 40px; text-decoration: none; color: black; font-weight: bold; display: inline-flex; margin-bottom: 15px; }
         .badge-gem { background: #1a2c42; color: gold; padding: 2px 12px; border-radius: 40px; font-size: 0.7rem; }
         
         .leaderboard-box { margin-top: 25px; background: var(--grijs); padding: 18px; border-radius: 12px; }
         .leaderboard-item { background: white; padding: 8px 12px; border-radius: 20px; display: flex; justify-content: space-between; margin-bottom: 5px; border-left: 4px solid var(--p-geel); }
+
+        .drop-zone { min-width: 180px; background:#f0f2f5; padding: 10px; border-radius: 20px; border: 2px dashed #ccc; text-align: center; }
     </style>
 </head>
 <body>
@@ -94,7 +96,7 @@
 <div id="login-overlay">
     <div class="login-card">
         <h2 style="color: var(--p-blauw); margin-top: 0;">👮‍♀️ POLITIEACADEMIE</h2>
-        <p><strong>Briefing:</strong> Bekijk het fragment voor de casusdetails.</p>
+        <p><strong>Briefing:</strong> Bekijk het fragment voor de casus details.</p>
         
         <div class="video-box-login">
             <video width="100%" height="100%" controls poster="https://www.politie.nl/binaries/content/gallery/politie/algemeen/politielogo-blauw.jpg">
@@ -122,40 +124,35 @@
     </nav>
     <button onclick="resetAll()" class="btn-reset">🔄 RESET ALLES</button>
 
-  <div id="page-aangifte" class="sub-page active">
-    <div class="instruction">
-        <span class="badge-gem">✨ GEMINI GEM ingebed</span><br>
-        <strong>log in: bpostudentleusden@gmail.com | Stud3ntl3usd3n </strong><br> Nooit wachtwoorden opslaan in de browser!
-    </div>
-    
-    <a href="https://gemini.google.com/gem/1S-TbiyvMUv6QySJN4yJMjYbnyeg9lmul?usp=sharing" target="_blank" class="audio-icon">✨ Open Gemini Gem: Analyseer mijn PV</a>
-    
-    <!-- Tekstveld -->
-    <textarea id="pvText" rows="10" placeholder="Ik, verbalisant..." oninput="updateLiveFeed()"></textarea>
-
-    <!-- Statische Live Feed Container (voorkomt verspringen) -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+    <div id="page-aangifte" class="sub-page active">
+        <div class="instruction">
+            <span class="badge-gem">✨ GEMINI GEM ingebed</span><br>
+            <strong>log in: bpostudentleusden@gmail.com | Stud3ntl3usd3n </strong><br> Nooit wachtwoorden opslaan in de browser!
+        </div>
+        <a href="https://gemini.google.com/gem/1S-TbiyvMUv6QySJN4yJMjYbnyeg9lmul?usp=sharing" target="_blank" class="audio-icon">✨ Open Gemini Gem: Analyseer mijn PV</a>
         
-        <!-- Live Preview van de tekst -->
-        <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; display: flex; flex-direction: column;">
-            <div style="background: var(--p-blauw); color: white; padding: 5px 12px; font-size: 0.8rem; border-radius: 7px 7px 0 0;">📡 LIVE PREVIEW</div>
-            <div id="live-scroll-box" style="height: 120px; padding: 10px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 0.9rem; color: #444; line-height: 1.4;">
-                <em>Start met typen om de preview te genereren...</em>
+        <textarea id="pvText" rows="10" placeholder="Ik, verbalisant..." oninput="updateLiveFeed()"></textarea>
+        
+        <!-- Live Feed & Feedback Grid -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+            <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; display: flex; flex-direction: column;">
+                <div style="background: var(--p-blauw); color: white; padding: 5px 12px; font-size: 0.8rem; border-radius: 7px 7px 0 0;">📡 LIVE PREVIEW</div>
+                <div id="live-scroll-box" style="height: 120px; padding: 10px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 0.9rem; color: #444; line-height: 1.4;">
+                    <em>Wacht op invoer van verbalisant...</em>
+                </div>
+            </div>
+
+            <div style="background: #fff8e7; border: 1px solid #fcc917; border-radius: 8px; display: flex; flex-direction: column;">
+                <div style="background: var(--p-geel); color: var(--p-blauw); padding: 5px 12px; font-size: 0.8rem; font-weight: bold; border-radius: 7px 7px 0 0;">💡 DIDACTISCHE FEEDBACK</div>
+                <div id="feedback-box" style="height: 120px; padding: 10px; overflow-y: auto; font-size: 0.9rem; font-weight: 500; color: #666;">
+                    Wacht op invoer...
+                </div>
             </div>
         </div>
 
-        <!-- Directe Feedback box -->
-        <div style="background: #fff8e7; border: 1px solid #fcc917; border-radius: 8px; display: flex; flex-direction: column;">
-            <div style="background: var(--p-geel); color: var(--p-blauw); padding: 5px 12px; font-size: 0.8rem; font-weight: bold; border-radius: 7px 7px 0 0;">💡 DIDACTISCHE FEEDBACK</div>
-            <div id="feedback-box" style="height: 120px; padding: 10px; overflow-y: auto; font-size: 0.9rem; font-weight: 500;">
-                Wacht op invoer...
-            </div>
-        </div>
-
+        <button onclick="submitPV()" class="btn-check" style="background: var(--p-geel); color: var(--p-blauw); margin-top: 15px;">📨 PV DEFINITIEF VERZENDEN</button>
     </div>
 
-    <button onclick="submitPV()" class="btn-check" style="background: var(--p-geel); color: var(--p-blauw); margin-top: 15px;">📨 PV DEFINITIEF VERZENDEN</button>
-</div>
     <div id="page-ww" class="sub-page">
         <div class="instruction">Herschrijf de zin in de <strong>OVT, ik-vorm</strong> mét waarneming (ik zag/hoorde dat...).</div>
         <div id="ww-list"></div>
@@ -249,7 +246,7 @@
         ontlList.innerHTML = ontlOpgaven.map((item, i) => `
             <div class="sentence-row">
                 <span style="flex:1;">${item[0]}</span>
-                <span class="drop-zone" id="dz-${i}" style="min-width: 180px; background:#f0f2f5; padding: 10px; border-radius: 20px;" ondrop="drop(event)" ondragover="allowDrop(event)">⚠️ Sleep hier</span>
+                <span class="drop-zone" id="dz-${i}" ondrop="drop(event)" ondragover="allowDrop(event)">⚠️ Sleep hier</span>
             </div>
         `).join('');
     }
@@ -262,41 +259,34 @@
     };
 
     window.updateLiveFeed = () => {
-    const text = document.getElementById('pvText').value;
-    const preview = document.getElementById('live-scroll-box');
-    const feedback = document.getElementById('feedback-box');
+        const text = document.getElementById('pvText').value;
+        const preview = document.getElementById('live-scroll-box');
+        const feedback = document.getElementById('feedback-box');
 
-    // Update Live Preview
-    preview.innerText = text || "Start met typen om de preview te genereren...";
-    
-    // Update Feedback zonder verspringen
-    if (text.length < 10) {
-        feedback.innerHTML = "Schrijf minimaal 10 tekens.";
-        feedback.style.color = "#666";
-    } else {
-        const hasObservation = /ik zag|ik hoorde|ik voelde|ik rook/i.test(text);
-        const hasOvt = /deed|stond|liep|vond|hoorde|zag|nam/i.test(text); // Simpele check op veelvoorkomende OVT
-
-        let feedbackText = "";
-        if (hasObservation) {
-            feedbackText += "✅ Wetenschap (waarneming) herkend.<br>";
+        if (text.length > 0) {
+            preview.innerText = text;
         } else {
-            feedbackText += "❌ Gebruik 'ik zag' of 'ik hoorde'.<br>";
+            preview.innerHTML = "<em>Wacht op invoer van verbalisant...</em>";
         }
 
-        if (hasOvt) {
-            feedbackText += "✅ Gebruik van verleden tijd herkend.";
+        if (text.length < 5) {
+            feedback.innerHTML = "Wacht op invoer...";
+            feedback.style.color = "#666";
         } else {
-            feedbackText += "⚠️ Let op: Schrijf in de OVT (filmisch).";
+            const hasObservation = /ik zag|ik hoorde|ik voelde|ik rook/i.test(text);
+            const hasOvt = /deed|stond|liep|vond|hoorde|zag|nam|stapte|opende/i.test(text);
+
+            let feedbackText = "";
+            feedbackText += hasObservation ? "✅ Reden van wetenschap herkend.<br>" : "⚠️ Gebruik 'ik zag/hoorde' (waarneming).<br>";
+            
+            // Gebruik 'filmisch' alleen bij OVT conform instructie
+            feedbackText += hasOvt ? "✅ Werkwoordsvorm: OVT (filmisch) herkend." : "❌ Gebruik de verleden tijd (filmisch).";
+            
+            feedback.innerHTML = feedbackText;
+            feedback.style.color = (hasObservation && hasOvt) ? "green" : "#e30613";
         }
-        
-        feedback.innerHTML = feedbackText;
-        feedback.style.color = hasObservation && hasOvt ? "green" : "#e30613";
-    }
-    
-    // Auto-scroll naar beneden in de preview
-    preview.scrollTop = preview.scrollHeight;
-};
+        preview.scrollTop = preview.scrollHeight;
+    };
 
     window.checkWW = () => {
         let score = 0;
