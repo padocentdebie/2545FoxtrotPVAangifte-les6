@@ -122,17 +122,40 @@
     </nav>
     <button onclick="resetAll()" class="btn-reset">🔄 RESET ALLES</button>
 
-    <div id="page-aangifte" class="sub-page active">
-        <div class="instruction">
-            <span class="badge-gem">✨ GEMINI GEM ingebed</span><br>
-            <strong>log in: bpostudentleusden@gmail.com | Stud3ntl3usd3n </strong><br> Nooit wachtwoorden opslaan in de browser!
+  <div id="page-aangifte" class="sub-page active">
+    <div class="instruction">
+        <span class="badge-gem">✨ GEMINI GEM ingebed</span><br>
+        <strong>log in: bpostudentleusden@gmail.com | Stud3ntl3usd3n </strong><br> Nooit wachtwoorden opslaan in de browser!
+    </div>
+    
+    <a href="https://gemini.google.com/gem/1S-TbiyvMUv6QySJN4yJMjYbnyeg9lmul?usp=sharing" target="_blank" class="audio-icon">✨ Open Gemini Gem: Analyseer mijn PV</a>
+    
+    <!-- Tekstveld -->
+    <textarea id="pvText" rows="10" placeholder="Ik, verbalisant..." oninput="updateLiveFeed()"></textarea>
+
+    <!-- Statische Live Feed Container (voorkomt verspringen) -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+        
+        <!-- Live Preview van de tekst -->
+        <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; display: flex; flex-direction: column;">
+            <div style="background: var(--p-blauw); color: white; padding: 5px 12px; font-size: 0.8rem; border-radius: 7px 7px 0 0;">📡 LIVE PREVIEW</div>
+            <div id="live-scroll-box" style="height: 120px; padding: 10px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 0.9rem; color: #444; line-height: 1.4;">
+                <em>Start met typen om de preview te genereren...</em>
+            </div>
         </div>
-        <a href="https://gemini.google.com/gem/1S-TbiyvMUv6QySJN4yJMjYbnyeg9lmul?usp=sharing" target="_blank" class="audio-icon">✨ Open Gemini Gem: Analyseer mijn PV</a>
-        <textarea id="pvText" rows="12" placeholder="Ik, verbalisant..." oninput="updateLiveFeed()"></textarea>
-        <div id="live-feed" style="margin-top:10px; padding:10px; background:#eef2fa; border-left:4px solid var(--p-blauw);">📡 Wacht op invoer...</div>
-        <button onclick="submitPV()" class="btn-check" style="background: var(--p-geel); color: var(--p-blauw);">📨 PV DEFINITIEF VERZENDEN</button>
+
+        <!-- Directe Feedback box -->
+        <div style="background: #fff8e7; border: 1px solid #fcc917; border-radius: 8px; display: flex; flex-direction: column;">
+            <div style="background: var(--p-geel); color: var(--p-blauw); padding: 5px 12px; font-size: 0.8rem; font-weight: bold; border-radius: 7px 7px 0 0;">💡 DIDACTISCHE FEEDBACK</div>
+            <div id="feedback-box" style="height: 120px; padding: 10px; overflow-y: auto; font-size: 0.9rem; font-weight: 500;">
+                Wacht op invoer...
+            </div>
+        </div>
+
     </div>
 
+    <button onclick="submitPV()" class="btn-check" style="background: var(--p-geel); color: var(--p-blauw); margin-top: 15px;">📨 PV DEFINITIEF VERZENDEN</button>
+</div>
     <div id="page-ww" class="sub-page">
         <div class="instruction">Herschrijf de zin in de <strong>OVT, ik-vorm</strong> mét waarneming (ik zag/hoorde dat...).</div>
         <div id="ww-list"></div>
