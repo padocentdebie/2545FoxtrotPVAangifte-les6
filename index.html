@@ -262,11 +262,41 @@
     };
 
     window.updateLiveFeed = () => {
-        const text = document.getElementById('pvText').value;
-        const feed = document.getElementById('live-feed');
-        if (text.length < 5) return;
-        feed.innerHTML = text.match(/ik zag|ik hoorde|ik voelde|ik rook/i) ? "✅ Redenen van wetenschap herkend." : "⚠️ Gebruik 'ik zag/hoorde'.";
-    };
+    const text = document.getElementById('pvText').value;
+    const preview = document.getElementById('live-scroll-box');
+    const feedback = document.getElementById('feedback-box');
+
+    // Update Live Preview
+    preview.innerText = text || "Start met typen om de preview te genereren...";
+    
+    // Update Feedback zonder verspringen
+    if (text.length < 10) {
+        feedback.innerHTML = "Schrijf minimaal 10 tekens.";
+        feedback.style.color = "#666";
+    } else {
+        const hasObservation = /ik zag|ik hoorde|ik voelde|ik rook/i.test(text);
+        const hasOvt = /deed|stond|liep|vond|hoorde|zag|nam/i.test(text); // Simpele check op veelvoorkomende OVT
+
+        let feedbackText = "";
+        if (hasObservation) {
+            feedbackText += "✅ Wetenschap (waarneming) herkend.<br>";
+        } else {
+            feedbackText += "❌ Gebruik 'ik zag' of 'ik hoorde'.<br>";
+        }
+
+        if (hasOvt) {
+            feedbackText += "✅ Gebruik van verleden tijd herkend.";
+        } else {
+            feedbackText += "⚠️ Let op: Schrijf in de OVT (filmisch).";
+        }
+        
+        feedback.innerHTML = feedbackText;
+        feedback.style.color = hasObservation && hasOvt ? "green" : "#e30613";
+    }
+    
+    // Auto-scroll naar beneden in de preview
+    preview.scrollTop = preview.scrollHeight;
+};
 
     window.checkWW = () => {
         let score = 0;
