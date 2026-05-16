@@ -10,17 +10,17 @@
             --p-geel: #fcc917;
             --wit: #ffffff;
             --grijs: #f4f4f4;
-            --p-rood: #e30613;
         }
-
+        * {
+            box-sizing: border-box;
+        }
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             background: var(--grijs);
             margin: 0;
             padding: 20px;
         }
-
-        /* Login */
+        /* Login overlay */
         #login-overlay {
             position: fixed;
             inset: 0;
@@ -30,19 +30,57 @@
             align-items: center;
             z-index: 2000;
         }
-
         .login-card {
             background: white;
             padding: 30px;
             border-radius: 12px;
             width: 100%;
-            max-width: 450px;
-            text-align: center;
+            max-width: 500px;
             border-top: 10px solid var(--p-geel);
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
-
-        /* Container & Tabs */
+        .video-container {
+            margin: 15px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: black;
+        }
+        video {
+            width: 100%;
+            display: block;
+        }
+        .login-card input, .login-card select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        .btn-main {
+            background: var(--p-blauw);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            font-size: 16px;
+        }
+        .btn-geel {
+            background: var(--p-geel);
+            color: black;
+        }
+        .btn-reset {
+            background: #dc3545;
+            color: white;
+            margin-top: 10px;
+        }
+        .btn-reset:hover {
+            background: #b02a37;
+        }
+        /* Main app */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -51,14 +89,13 @@
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-
         .nav-tabs {
             display: flex;
             gap: 10px;
             border-bottom: 3px solid var(--p-blauw);
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
-
         .nav-btn {
             padding: 12px 20px;
             border: none;
@@ -68,42 +105,190 @@
             color: var(--p-blauw);
             opacity: 0.6;
         }
-
         .nav-btn.active {
             opacity: 1;
             border-bottom: 4px solid var(--p-geel);
             background: #f0f4fa;
         }
-
         .sub-page { display: none; }
         .sub-page.active { display: block; }
-
-        /* Oefeningen Styles */
-        .instruction { background: #fff8e7; border-left: 6px solid var(--p-geel); padding: 15px; margin-bottom: 20px; border-radius: 4px; }
-        .sentence-row { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 10px; }
-        .ww-input { width: 100%; padding: 10px; margin-top: 8px; border: 2px solid var(--p-blauw); border-radius: 5px; font-family: monospace; }
-        
-        /* Live Feed */
-        .live-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        .live-box { border: 2px solid var(--p-blauw); border-radius: 8px; height: 180px; padding: 15px; background: #fff; overflow-y: auto; font-family: 'Courier New', monospace; }
-        .feedback-box { border: 2px solid var(--p-geel); background: #fffdf5; color: #555; }
-
-        textarea { width: 100%; padding: 15px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; margin-bottom: 10px; height: 150px; }
-        .btn-main { background: var(--p-blauw); color: white; border: none; padding: 15px 30px; border-radius: 30px; cursor: pointer; font-weight: bold; width: 100%; }
-        
-        .drop-zone { background: #eee; border: 2px dashed #bbb; padding: 10px; border-radius: 5px; min-width: 150px; text-align: center; }
-        .draggable { background: var(--p-blauw); color: white; padding: 8px 15px; border-radius: 20px; cursor: move; display: inline-block; margin: 5px; }
-
-        .leaderboard { background: #222; color: gold; padding: 15px; border-radius: 8px; margin-top: 20px; }
+        .instruction {
+            background: #fff8e7;
+            border-left: 6px solid var(--p-geel);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .sentence-row {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .ww-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border: 2px solid var(--p-blauw);
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .live-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .live-box {
+            border: 2px solid var(--p-blauw);
+            border-radius: 8px;
+            height: 180px;
+            padding: 15px;
+            background: #fff;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+        }
+        .feedback-box {
+            border: 2px solid var(--p-geel);
+            background: #fffdf5;
+        }
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            height: 150px;
+        }
+        .drop-zone {
+            background: #eee;
+            border: 2px dashed #bbb;
+            padding: 10px;
+            border-radius: 5px;
+            min-width: 150px;
+            text-align: center;
+        }
+        .draggable {
+            background: var(--p-blauw);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: grab;
+            display: inline-block;
+            margin: 5px;
+            user-select: none;
+        }
+        .leaderboard {
+            background: #222;
+            color: gold;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .feedback-summary {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 6px solid var(--p-geel);
+            min-height: 80px;
+        }
+        .dropped-correct { background: #d4edda; border-color: green; }
+        .dropped-wrong { background: #f8d7da; border-color: red; }
+        button {
+            font-size: 1rem;
+        }
+        /* Stijl voor Gemini actiekaart */
+        .gemini-card {
+            margin: 20px 0;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #fff8e7 0%, #fff1d6 100%);
+            border: 2px solid var(--p-geel);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .gemini-text {
+            flex: 1;
+        }
+        .gemini-text h3 {
+            margin: 0 0 5px 0;
+            color: var(--p-blauw);
+        }
+        .gemini-text p {
+            margin: 0;
+            color: #333;
+            font-size: 0.9rem;
+        }
+        .gemini-button {
+            background: var(--p-blauw);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .gemini-button:hover {
+            background: #00337a;
+            transform: scale(1.02);
+        }
+        .gemini-button::after {
+            content: "↗";
+            font-size: 1.2em;
+        }
+        .login-credentials {
+            font-size: 0.8rem;
+            color: #555;
+            margin-top: 8px;
+            background: #fff3cd;
+            padding: 5px 10px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        /* Stijl voor de leesbare weergave bij inleveren */
+        .submitted-pv {
+            background: #f8f9fa;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .submitted-feedback {
+            background: #e9ecef;
+            border-left: 4px solid var(--p-geel);
+            padding: 12px;
+            margin-top: 10px;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
 
 <div id="login-overlay">
     <div class="login-card">
-        <h1 style="color: var(--p-blauw);">👮‍♀️ ACADEMIE LOGIN</h1>
-        <input type="text" id="agentNaam" placeholder="Naam Agent" style="width:100%; padding:12px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc;">
-        <select id="natoKlas" style="width:100%; padding:12px; margin-bottom:20px; border-radius:5px;">
+        <h2 style="color: var(--p-blauw); text-align:center;">POLITIEACADEMIE</h2>
+        <div class="video-container">
+            <video controls>
+                <source src="2545Faangifteles6.mp4" type="video/mp4">
+                Browser ondersteunt video niet.
+            </video>
+        </div>
+        <input type="text" id="agentNaam" placeholder="Naam agent" value="Agent">
+        <select id="natoKlas">
             <option value="Alpha">NATO - Alpha</option>
             <option value="Bravo">NATO - Bravo</option>
             <option value="Charlie">NATO - Charlie</option>
@@ -112,51 +297,83 @@
             <option value="Foxtrot">NATO - Foxtrot</option>
             <option value="Golf">NATO - Golf</option>
             <option value="Hotel">NATO - Hotel</option>
+            <option value="India">NATO - India</option>
+            <option value="Juliett">NATO - Juliett</option>
+            <option value="Kilo">NATO - Kilo</option>
+            <option value="Lima">NATO - Lima</option>
+            <option value="Mike">NATO - Mike</option>
         </select>
-        <button class="btn-main" style="background:var(--p-geel); color:black;" onclick="startDienst()">DIENST STARTEN</button>
+        <button class="btn-main btn-geel" onclick="startDienst()">Dienst starten</button>
+        <button class="btn-main btn-reset" onclick="resetVoorLes()">Reset alle velden (begin les)</button>
     </div>
 </div>
 
 <div class="container" id="mainApp" style="display:none;">
     <div class="nav-tabs">
-        <button class="nav-btn active" onclick="showTab('page-aangifte', this)">📄 AANGIFTE PRISCILLA</button>
-        <button class="nav-btn" onclick="showTab('page-ww', this)">✍️ WERKWOORDEN (OVT)</button>
-        <button class="nav-btn" onclick="showTab('page-ontleding', this)">📚 ZINSONTLEDING</button>
+        <button class="nav-btn active" onclick="showTab('page-pv', this)">PV Bevindingen</button>
+        <button class="nav-btn" onclick="showTab('page-ww', this)">Werkwoordspelling (OVT)</button>
+        <button class="nav-btn" onclick="showTab('page-ontleding', this)">Zinsontleding</button>
     </div>
 
-    <!-- PAGINA 1: AANGIFTE -->
-    <div id="page-aangifte" class="sub-page active">
+    <!-- PV BEVINDINGEN (Aangifte) -->
+    <div id="page-pv" class="sub-page active">
         <div class="instruction">
-            <strong>Opdracht:</strong> Werk de verklaring van Priscilla uit. Schrijf <em>filmisch</em> (in de verleden tijd) en gebruik waarnemingswoorden.
+            <strong>Opdracht PV Bevindingen:</strong> Schrijf een filmisch proces-verbaal op basis van de verklaring van Priscilla.<br>
+            <strong>Vereisten:</strong>
+            <ul style="margin: 5px 0 0 20px;">
+                <li>Verleden tijd (onvoltooid verleden tijd / OVT)</li>
+                <li><strong>Waarneming</strong> – vermeld uw <em>reden van wetenschap</em> (eigen waarneming: "ik zag/hoorde/voelde/rook", of van horen zeggen, etc.)</li>
+                <li>Dag, datum en tijdstip van de waarneming</li>
+            </ul>
         </div>
-        <textarea id="inputPV" placeholder="Ik, verbalisant, zag dat..."></textarea>
+        
+        <!-- Gemini actiekaart met inloggegevens -->
+        <div class="gemini-card">
+            <div class="gemini-text">
+                <h3>Lesinstructies en voorbeelden</h3>
+                <p>Bekijk de volledige les met uitleg, voorbeeldzinnen en feedback via Gemini.</p>
+                <div class="login-credentials">
+                    🔑 Inloggen Gemini: <strong>bpostudentleusden@gmail.com</strong> | <strong>Stud3ntl3usd3n</strong><br>
+                    <span style="font-size:0.7rem;">☝️ Nooit wachtwoord opslaan in de browser</span>
+                </div>
+            </div>
+            <a href="https://gemini.google.com/gem/1S-TbiyvMUv6QySJN4yJMjYbnyeg9lmul?usp=sharing" target="_blank" class="gemini-button">Open in Gemini</a>
+        </div>
+        
+        <textarea id="inputPV" placeholder="Voorbeeld: Op maandag 10 maart 2025 om 14:30 uur zag ik (eigen waarneming) dat de verdachte wegliep..."></textarea>
         
         <div class="live-grid">
-            <div>
-                <strong>📡 LIVE FEED:</strong>
-                <div id="livePreview" class="live-box">Wacht op invoer van verbalisant...</div>
-            </div>
-            <div>
-                <strong>💡 COACH FEEDBACK:</strong>
-                <div id="liveFeedback" class="live-box feedback-box">Voer tekst in voor analyse...</div>
-            </div>
+            <div><strong>Live voorbeeld:</strong><div id="livePreview" class="live-box"></div></div>
+            <div><strong>Coach feedback (waarneming & OVT):</strong><div id="liveFeedback" class="live-box feedback-box"></div></div>
         </div>
+
+        <!-- Studentfeedback veld -->
+        <div style="margin: 20px 0;">
+            <label for="studentFeedback" style="font-weight: bold; display: block; margin-bottom: 5px;">Eigen feedback / opmerkingen (verplicht voor inlevering):</label>
+            <textarea id="studentFeedback" rows="3" placeholder="Typ hier uw eigen reflectie, opmerkingen of vragen bij uw PV..."></textarea>
+        </div>
+
+        <button class="btn-main" onclick="leverPVin()">Inleveren ter beoordeling</button>
+        
+        <div id="definitieveFeedback" class="feedback-summary" style="display:none;"></div>
     </div>
 
-    <!-- PAGINA 2: WERKWOORDEN -->
+    <!-- WERKWOORDEN -->
     <div id="page-ww" class="sub-page">
-        <div class="instruction">Herschrijf de onderstaande zinnen naar de <strong>OVT</strong> (verleden tijd).</div>
+        <div class="instruction">
+            Herschrijf elke zin naar de onvoltooid verleden tijd (OVT). Begin met een dag, datum en tijd (bijv. "Op donderdag 18 maart 2025 om 09:00 uur") en gebruik de ik-vorm waar mogelijk.
+        </div>
         <div id="ww-container"></div>
-        <button class="btn-main" onclick="checkWW()">CONTROLEER ANTWOORDEN</button>
+        <button class="btn-main" onclick="checkWW()">Controleer werkwoorden</button>
         <div class="leaderboard">
-            <strong>🏆 KLASSEMENT NATO <span id="klasLabel"></span>:</strong>
-            <div id="leaderboard-list"></div>
+            <strong>Klassement NATO <span id="klasLabel"></span> (op naam):</strong>
+            <div id="leaderboard-list">Nog geen scores</div>
         </div>
     </div>
 
-    <!-- PAGINA 3: ONTLEDING -->
+    <!-- ZINSONTLEDING -->
     <div id="page-ontleding" class="sub-page">
-        <div class="instruction">Sleep de juiste benaming naar de onderstreepte zinsdelen.</div>
+        <div class="instruction">Sleep de juiste zinsdeelbenaming naar de onderstreepte delen.</div>
         <div id="draggables-container">
             <div class="draggable" draggable="true" ondragstart="drag(event)">Onderwerp</div>
             <div class="draggable" draggable="true" ondragstart="drag(event)">Gezegde</div>
@@ -165,81 +382,111 @@
             <div class="draggable" draggable="true" ondragstart="drag(event)">Bijwoordelijke bepaling</div>
         </div>
         <div id="ontleding-container" style="margin-top:20px;"></div>
+        <button class="btn-main" onclick="checkOntleding()">Controleer ontleding</button>
     </div>
 </div>
 
 <script>
+    // Werkwoordopgaven (fout -> correct met sleutel)
     const wwOpgaven = [
-        {f: "Mijn collega's hebben de verdachte aangehouden.", c: "Ik zag dat mijn collega's de verdachte aanhielden."},
-        {f: "Collega's hebben een verklaring afgenomen van Priscilla.", c: "Ik hoorde dat mijn collega's een verklaring afnamen van Priscilla."},
-        {f: "De agenten hebben het rood-witte lint opgehangen.", c: "Ik zag dat de agenten het rood-witte lint ophingen."},
-        {f: "Collega's hebben de achterdeur geopend.", c: "Ik zag dat mijn collega's de achterdeur openden."},
-        {f: "Wij hebben op de deurbel gedrukt.", c: "Ik drukte op de deurbel."},
-        {f: "De surveillanten zijn uit de auto gestapt.", c: "Ik zag dat de surveillanten uit de auto stapten."},
-        {f: "Zij hebben via de porto informatie opgevraagd.", c: "Ik hoorde dat zij via de porto informatie opvroegen."},
-        {f: "Wij hebben de arm vastgepakt.", c: "Ik pakte de arm vast."},
-        {f: "Mijn collega's hebben de machtiging getoond.", c: "Ik zag dat mijn collega's de machtiging toonden."},
-        {f: "Collega's hebben plastic zakjes gevonden.", c: "Ik zag dat mijn collega's plastic zakjes vonden."},
-        {f: "De agenten hebben de verdachte gefouilleerd.", c: "Ik zag dat de agenten de verdachte fouilleerden."},
-        {f: "Collega's hebben de getuige toegesproken.", c: "Ik hoorde dat mijn collega's de getuige toespraken."},
-        {f: "Wij hebben de beelden veiliggesteld.", c: "Ik stelde de beelden veilig."},
-        {f: "De surveillanten hebben assistentie gevraagd.", c: "Ik hoorde dat de surveillanten om assistentie vroegen."},
-        {f: "Mijn collega's hebben pepperspray gebruikt.", c: "Ik zag dat mijn collega's pepperspray gebruikten."},
-        {f: "Mijn collega houdt de demonstranten tegen.", c: "Ik zag dat mijn collega de demonstranten tegenhield."},
-        {f: "Wij hebben het voertuig aan de kant gezet.", c: "Ik zette het voertuig aan de kant."},
-        {f: "Collega's hebben de ID-kaarten gecontroleerd.", c: "Ik zag dat mijn collega's de ID-kaarten controleerden."},
-        {f: "De agenten hebben de omgeving afgezet.", c: "Ik zag dat de agenten de omgeving afzetten."},
-        {f: "Wij hebben de snelheid gemeten.", c: "Ik mat de snelheid."},
-        {f: "Collega's hebben de getuige naar huis gebracht.", c: "Ik zag dat mijn collega's de getuige naar huis brachten."},
-        {f: "De surveillanten hebben een PV opgemaakt.", c: "Ik zag dat de surveillanten een PV opmaakten."},
-        {f: "Wij hebben de werktuigen in beslag genomen.", c: "Ik nam de werktuigen in beslag."},
-        {f: "Mijn collega's hebben de achtervolging ingezet.", c: "Ik zag dat mijn collega's de achtervolging inzetten."},
-        {f: "De agenten hebben de ruit ingeslagen.", c: "Ik zag dat de agenten de ruit insloegen."},
-        {f: "Wij hebben de melding genoteerd.", c: "Ik noteerde de melding."}
+        { fout: "Mijn collega's hebben de verdachte aangehouden.", correctSleutel: "zag ik dat mijn collega's de verdachte aanhielden" },
+        { fout: "Collega's hebben een verklaring afgenomen van Priscilla.", correctSleutel: "hoorde ik dat mijn collega's een verklaring afnamen van Priscilla" },
+        { fout: "De agenten hebben het rood-witte lint opgehangen.", correctSleutel: "zag ik dat de agenten het rood-witte lint ophingen" },
+        { fout: "Collega's hebben de achterdeur geopend.", correctSleutel: "zag ik dat mijn collega's de achterdeur openden" },
+        { fout: "Wij hebben op de deurbel gedrukt.", correctSleutel: "drukte ik op de deurbel" },
+        { fout: "De surveillanten zijn uit de auto gestapt.", correctSleutel: "zag ik dat de surveillanten uit de auto stapten" },
+        { fout: "Zij hebben via de porto informatie opgevraagd.", correctSleutel: "hoorde ik dat zij via de porto informatie opvroegen" },
+        { fout: "Wij hebben de arm vastgepakt.", correctSleutel: "pakte ik de arm vast" },
+        { fout: "Mijn collega's hebben de machtiging getoond.", correctSleutel: "zag ik dat mijn collega's de machtiging toonden" },
+        { fout: "Collega's hebben plastic zakjes gevonden.", correctSleutel: "zag ik dat mijn collega's plastic zakjes vonden" }
     ];
 
     const ontledingOpgaven = [
-        ["<u>De verbalisant</u> zag de verdachte.", "Onderwerp"],
-        ["Ik <u>heb</u> de man <u>aangehouden</u>.", "Gezegde"],
-        ["Ik gaf <u>de man</u> een bevel.", "Meewerkend voorwerp"],
-        ["De agent droeg <u>een vest</u>.", "Lijdend voorwerp"],
-        ["Het vond plaats <u>in de ochtend</u>.", "Bijwoordelijke bepaling"],
-        ["<u>Een getuige</u> riep om hulp.", "Onderwerp"],
-        ["Ik <u>zag</u> hem <u>rennen</u>.", "Gezegde"],
-        ["Ik toonde <u>de verdachte</u> de machtiging.", "Meewerkend voorwerp"],
-        ["Hij stal <u>een fiets</u>.", "Lijdend voorwerp"],
-        ["De diefstal gebeurde <u>in de trein</u>.", "Bijwoordelijke bepaling"]
+        { zin: "<u>De verbalisant</u> zag de verdachte.", correct: "Onderwerp" },
+        { zin: "Ik <u>heb</u> de man <u>aangehouden</u>.", correct: "Gezegde" },
+        { zin: "Ik gaf <u>de man</u> een bevel.", correct: "Meewerkend voorwerp" },
+        { zin: "De agent droeg <u>een vest</u>.", correct: "Lijdend voorwerp" },
+        { zin: "Het vond plaats <u>in de ochtend</u>.", correct: "Bijwoordelijke bepaling" },
+        { zin: "<u>Een getuige</u> riep om hulp.", correct: "Onderwerp" },
+        { zin: "Ik <u>zag</u> hem <u>rennen</u>.", correct: "Gezegde" },
+        { zin: "Ik toonde <u>de verdachte</u> de machtiging.", correct: "Meewerkend voorwerp" },
+        { zin: "Hij stal <u>een fiets</u>.", correct: "Lijdend voorwerp" },
+        { zin: "De diefstal gebeurde <u>in de trein</u>.", correct: "Bijwoordelijke bepaling" }
     ];
 
     let currentAgent = "";
     let currentKlas = "";
 
-    function startDienst() {
-        currentAgent = document.getElementById('agentNaam').value;
-        currentKlas = document.getElementById('natoKlas').value;
-        if(!currentAgent) return alert("Naam verplicht");
+    function resetVoorLes() {
+        sessionStorage.setItem('resetVoortgang', 'true');
+        alert("Alle lesgegevens worden gewist bij de volgende 'Dienst starten'. Klik nu op 'Dienst starten' om met een schone lei te beginnen.");
+    }
+
+    function resetAlleVelden() {
+        // PV-pagina
+        const inputPV = document.getElementById('inputPV');
+        if (inputPV) inputPV.value = "";
+        const studentFeedback = document.getElementById('studentFeedback');
+        if (studentFeedback) studentFeedback.value = "";
+        const definitieveFeedback = document.getElementById('definitieveFeedback');
+        if (definitieveFeedback) {
+            definitieveFeedback.style.display = "none";
+            definitieveFeedback.innerHTML = "";
+        }
+        const livePreview = document.getElementById('livePreview');
+        if (livePreview) livePreview.innerText = "Wacht op invoer...";
+        const liveFeedback = document.getElementById('liveFeedback');
+        if (liveFeedback) liveFeedback.innerText = "Voer tekst in voor analyse...";
         
+        // Werkwoordpagina
+        for (let i = 0; i < wwOpgaven.length; i++) {
+            const wwInput = document.getElementById(`ww-${i}`);
+            if (wwInput) {
+                wwInput.value = "";
+                wwInput.style.background = "";
+            }
+        }
+        const leaderboardList = document.getElementById('leaderboard-list');
+        if (leaderboardList) leaderboardList.innerHTML = "Nog geen scores";
+        
+        // Zinsontleding
+        const dropZones = document.querySelectorAll('#ontleding-container .drop-zone');
+        dropZones.forEach((zone) => {
+            zone.innerText = "Sleep hier";
+            zone.classList.remove("dropped-correct", "dropped-wrong");
+        });
+    }
+
+    function startDienst() {
+        currentAgent = document.getElementById('agentNaam').value.trim();
+        if (!currentAgent) currentAgent = "Agent";
+        currentKlas = document.getElementById('natoKlas').value;
         document.getElementById('klasLabel').innerText = currentKlas;
         document.getElementById('login-overlay').style.display = 'none';
         document.getElementById('mainApp').style.display = 'block';
+        laadOefeningen();
+        initLivePreview();
         
-        loadExercises();
+        if (sessionStorage.getItem('resetVoortgang') === 'true') {
+            resetAlleVelden();
+            sessionStorage.removeItem('resetVoortgang');
+        }
     }
 
-    function loadExercises() {
+    function laadOefeningen() {
         const wwCont = document.getElementById('ww-container');
         wwCont.innerHTML = wwOpgaven.map((o, i) => `
             <div class="sentence-row">
-                <strong>Zin ${i+1}:</strong> ${o.f}<br>
-                <input type="text" id="ww-${i}" class="ww-input" placeholder="Jouw antwoord...">
+                <strong>Zin ${i+1}:</strong> ${o.fout}<br>
+                <input type="text" id="ww-${i}" class="ww-input" placeholder="Jouw antwoord (dag, datum, tijd + juiste OVT-vorm)...">
             </div>
         `).join('');
 
         const ontlCont = document.getElementById('ontleding-container');
         ontlCont.innerHTML = ontledingOpgaven.map((o, i) => `
-            <div class="sentence-row" style="display:flex; justify-content:space-between; align-items:center;">
-                <span>${o[0]}</span>
-                <div class="drop-zone" ondrop="drop(event, ${i})" ondragover="allowDrop(event)">Sleep hier</div>
+            <div class="sentence-row" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+                <span style="margin-right:15px;">${o.zin}</span>
+                <div class="drop-zone" data-idx="${i}" ondrop="drop(event, ${i})" ondragover="allowDrop(event)">Sleep hier</div>
             </div>
         `).join('');
     }
@@ -251,51 +498,112 @@
         btn.classList.add('active');
     }
 
-    // LIVE FEED LOGICA
-    const inputPV = document.getElementById('inputPV');
-    const livePreview = document.getElementById('livePreview');
-    const liveFeedback = document.getElementById('liveFeedback');
+    function initLivePreview() {
+        const inputPV = document.getElementById('inputPV');
+        const preview = document.getElementById('livePreview');
+        const feedbackLive = document.getElementById('liveFeedback');
+        inputPV.addEventListener('input', () => {
+            const tekst = inputPV.value;
+            preview.innerText = tekst || "Wacht op invoer...";
+            let fb = "";
+            // Waarneming (reden van wetenschap)
+            const heeftWaarneming = /ik zag|ik hoorde|ik rook|ik voelde|eigen waarneming|van horen zeggen|uit waarneming/i.test(tekst);
+            const heeftOVT = /\b(deed|stond|liep|vond|hoorde|zag|nam|pakte|opende|vroeg|stapte|hield|zette|controleerde|mat|bracht|maakte|sloeg|noteerde|drukte|aanhielden|afnamen|ophingen|openden|stapten|opvroegen|toonden|vonden)\b/i.test(tekst);
+            const heeftDatumTijd = /\b(\d{1,2}\s?(januari|februari|maart|april|mei|juni|juli|augustus|september|oktober|november|december|maandag|dinsdag|woensdag|donderdag|vrijdag|zaterdag|zondag)|\d{1,2}:\d{2}\b)/i.test(tekst);
+            if(!heeftWaarneming) fb += "⚠️ Geen waarneming / reden van wetenschap (gebruik 'ik zag', 'ik hoorde', 'eigen waarneming', etc.). ";
+            if(!heeftOVT) fb += "⚠️ Geen verleden tijd (OVT). ";
+            if(!heeftDatumTijd) fb += "⚠️ Vermeld dag, datum en tijd. ";
+            if(heeftWaarneming && heeftOVT && heeftDatumTijd) fb = "✅ Voldoet aan de eisen: waarneming (reden van wetenschap) + OVT + datum/tijd.";
+            feedbackLive.innerText = fb || "Schrijf verder...";
+        });
+    }
 
-    inputPV.addEventListener('input', () => {
-        const tekst = inputPV.value;
-        livePreview.innerText = tekst || "Wacht op invoer van verbalisant...";
-        
-        let fb = "";
-        const hasWaarneming = /ik zag|ik hoorde|ik rook|ik voelde/i.test(tekst);
-        const hasOvt = /deed|stond|liep|vond|hoorde|zag|nam|pakte|opende|vroeg|stapte/i.test(tekst);
+    function leverPVin() {
+        const tekst = document.getElementById('inputPV').value.trim();
+        const studentFeedback = document.getElementById('studentFeedback').value.trim();
+        if (!tekst) return alert("Schrijf eerst uw PV.");
+        if (!studentFeedback) return alert("Vul uw eigen feedback/opmerkingen in voordat u inlevert.");
 
-        if(!hasWaarneming) fb += "⚠️ Gebruik waarnemingswoorden ('Ik zag').<br>";
-        if(!hasOvt) fb += "⚠️ Gebruik de verleden tijd (OVT).<br>";
-        if(hasWaarneming && hasOvt) fb = "<span style='color:green;'>✅ Tekst is filmisch en bevat waarnemingen.</span>";
+        const heeftWaarneming = /ik zag|ik hoorde|ik rook|ik voelde|eigen waarneming|van horen zeggen|uit waarneming/i.test(tekst);
+        const heeftOVT = /\b(deed|stond|liep|vond|hoorde|zag|nam|pakte|opende|vroeg|stapte|hield|zette|controleerde|mat|bracht|maakte|sloeg|noteerde|drukte|aanhielden|afnamen|ophingen|openden|stapten|opvroegen|toonden|vonden)\b/i.test(tekst);
+        const heeftDatumTijd = /\b(\d{1,2}\s?(januari|februari|maart|april|mei|juni|juli|augustus|september|oktober|november|december|maandag|dinsdag|woensdag|donderdag|vrijdag|zaterdag|zondag)|\d{1,2}:\d{2}\b)/i.test(tekst);
         
-        liveFeedback.innerHTML = fb || "Blijf schrijven...";
-    });
+        let beoordeling = "";
+        if (heeftWaarneming && heeftOVT && heeftDatumTijd) {
+            beoordeling = "Goedgekeurd. Uw PV bevat een geldige waarneming (reden van wetenschap), OVT en datum/tijd.";
+        } else {
+            let missend = "";
+            if (!heeftWaarneming) missend += "waarneming/rede van wetenschap ";
+            if (!heeftOVT) missend += "OVT ";
+            if (!heeftDatumTijd) missend += "dag/datum/tijd";
+            beoordeling = `Afkeuring. Ontbrekend: ${missend}`;
+        }
+
+        const inleverDatum = new Date().toLocaleString();
+        const leesbareWeergave = `
+            <div class="submitted-pv">
+                <strong>Ingediend proces-verbaal (${inleverDatum}):</strong><br>
+                ${tekst.replace(/\n/g, '<br>')}
+            </div>
+            <div class="submitted-feedback">
+                <strong>Uw eigen feedback / opmerkingen:</strong><br>
+                ${studentFeedback.replace(/\n/g, '<br>') || "(geen opmerkingen)"}
+            </div>
+            <div class="submitted-pv" style="background:#fff3e0;">
+                <strong>Automatische beoordeling:</strong><br>
+                ${beoordeling}
+            </div>
+        `;
+
+        const fbDiv = document.getElementById('definitieveFeedback');
+        fbDiv.style.display = "block";
+        fbDiv.innerHTML = leesbareWeergave;
+    }
 
     function checkWW() {
         let score = 0;
         wwOpgaven.forEach((o, i) => {
-            const val = document.getElementById(`ww-${i}`).value.trim().toLowerCase();
-            if(val === o.c.toLowerCase()) {
+            const antwoord = document.getElementById(`ww-${i}`).value.trim().toLowerCase();
+            const bevatDag = /maandag|dinsdag|woensdag|donderdag|vrijdag|zaterdag|zondag/.test(antwoord);
+            const bevatDatum = /\d{1,2}\s?(januari|februari|maart|april|mei|juni|juli|augustus|september|oktober|november|december)/i.test(antwoord);
+            const bevatTijd = /\d{1,2}:\d{2}/.test(antwoord);
+            const bevatCorrectVorm = antwoord.includes(o.correctSleutel.toLowerCase());
+            if (bevatDag && bevatDatum && bevatTijd && bevatCorrectVorm) {
                 score++;
                 document.getElementById(`ww-${i}`).style.background = "#d4edda";
             } else {
                 document.getElementById(`ww-${i}`).style.background = "#f8d7da";
             }
         });
-        alert(`Je score: ${score}/${wwOpgaven.length}`);
+        alert(`Score werkwoordspelling: ${score}/${wwOpgaven.length}`);
+        document.getElementById('leaderboard-list').innerHTML = `${currentAgent} (${currentKlas}): ${score}/${wwOpgaven.length}`;
     }
 
-    // Drag & Drop
+    // Drag & drop
     function allowDrop(ev) { ev.preventDefault(); }
     function drag(ev) { ev.dataTransfer.setData("text", ev.target.innerText); }
     function drop(ev, idx) {
         ev.preventDefault();
-        const data = ev.dataTransfer.setData("text"); // Fix: use retrieved data
-        const draggedData = ev.dataTransfer.getData("text");
-        ev.target.innerText = draggedData;
-        ev.target.style.background = (draggedData === ontledingOpgaven[idx][1]) ? "#d4edda" : "#f8d7da";
+        const data = ev.dataTransfer.getData("text");
+        const dropZone = ev.target.classList.contains('drop-zone') ? ev.target : ev.target.closest('.drop-zone');
+        if (!dropZone) return;
+        dropZone.innerText = data;
+        if (data === ontledingOpgaven[idx].correct) {
+            dropZone.classList.add("dropped-correct");
+            dropZone.classList.remove("dropped-wrong");
+        } else {
+            dropZone.classList.add("dropped-wrong");
+            dropZone.classList.remove("dropped-correct");
+        }
+    }
+    function checkOntleding() {
+        let goed = 0;
+        const zones = document.querySelectorAll('#ontleding-container .drop-zone');
+        zones.forEach((zone, i) => {
+            if (zone.innerText.trim() === ontledingOpgaven[i].correct) goed++;
+        });
+        alert(`Score zinsontleding: ${goed}/${ontledingOpgaven.length}`);
     }
 </script>
-
 </body>
 </html>
